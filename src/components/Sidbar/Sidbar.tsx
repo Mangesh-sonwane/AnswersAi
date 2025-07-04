@@ -9,10 +9,7 @@ import {
 } from '@phosphor-icons/react';
 import { Link, useLocation } from 'react-router';
 import clsx from 'clsx';
-
-interface SidebarProps {
-  sidebar: boolean;
-}
+import { useUIStore } from '../../store/uiStore';
 
 const menuItems = [
   {
@@ -42,8 +39,9 @@ const menuItems = [
   },
 ];
 
-const Sidebar = ({ sidebar }: SidebarProps) => {
+const Sidebar = () => {
   const location = useLocation();
+  const sidebar = useUIStore((state) => state.sidebar);
 
   return (
     <Box
@@ -71,7 +69,7 @@ const Sidebar = ({ sidebar }: SidebarProps) => {
                 disableRipple
                 disableTouchRipple
                 className={clsx(
-                  '!p-2 !text-white !min-h-0 !rounded-none',
+                  '!p-2 !text-white !min-h-0 !rounded-none gap-3',
                   sidebar ? '!justify-start' : '!justify-center'
                 )}
                 sx={{

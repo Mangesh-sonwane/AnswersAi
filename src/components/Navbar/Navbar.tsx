@@ -10,11 +10,8 @@ import {
 import { List, MagnifyingGlass } from '@phosphor-icons/react';
 import { styled } from '@mui/material/styles';
 import React from 'react';
-
-interface NavbarProps {
-  sidebar: boolean;
-  setSideBar: (value: boolean) => void;
-}
+import { useLocation } from 'react-router-dom';
+import { useUIStore } from '../../store/uiStore';
 
 const Search = styled('div')({
   position: 'relative',
@@ -67,7 +64,7 @@ const StyledInputBase = styled(InputBase)({
 
 const StyledTabs = styled(Tabs)({
   '& .MuiTabs-indicator': {
-    display: 'none', // Remove default indicator
+    display: 'none',
   },
   '& .MuiTabs-flexContainer': {
     gap: '16px',
@@ -93,8 +90,6 @@ const StyledTab = styled(Tab)({
   padding: '0 7px',
   borderRadius: '4px',
   minWidth: 'auto',
-
-  // Force height
   height: '38px !important',
   minHeight: '38px !important',
   lineHeight: '38px',
@@ -106,8 +101,15 @@ const StyledTab = styled(Tab)({
   },
 });
 
-const Navbar = ({ sidebar, setSideBar }: NavbarProps) => {
-  const [tabValue, setTabValue] = React.useState(0);
+const Navbar = () => {
+  const tabValue = useUIStore((state) => state.tabValue);
+  const sidebar = useUIStore((state) => state.sidebar);
+
+  const setTabValue = useUIStore((state) => state.setTabValue);
+  const setSideBar = useUIStore((state) => state.setSideBar);
+
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const handleSidebar = () => {
     setSideBar(!sidebar);
@@ -118,36 +120,33 @@ const Navbar = ({ sidebar, setSideBar }: NavbarProps) => {
   };
 
   return (
-    <>
-      <AppBar
-        position='fixed'
+    <AppBar
+      position='fixed'
+      sx={{ boxShadow: 'none' }}
+      className='!bg-background-primary'
+    >
+      <Toolbar
         sx={{
-          boxShadow: 'none',
+          height: '87px',
+          minHeight: '87px !important',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
-        className='!bg-background-primary'
       >
-        <Toolbar
-          sx={{
-            height: '87px',
-            minHeight: '87px !important',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Box className='flex items-center gap-6'>
-            <IconButton
-              size='large'
-              edge='start'
-              color='inherit'
-              aria-label='menu'
-              onClick={handleSidebar}
-              className='border-2'
-            >
-              <List size={20} weight='regular' />
-            </IconButton>
+        <Box className='flex items-center gap-6'>
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            onClick={handleSidebar}
+            className='border-2'
+          >
+            <List size={20} weight='regular' />
+          </IconButton>
 
-            {/* Navigation Tabs */}
+          {isHomePage && (
             <Box
               sx={{
                 transition: 'margin-left 0.3s ease',
@@ -164,23 +163,22 @@ const Navbar = ({ sidebar, setSideBar }: NavbarProps) => {
                 <StyledTab label='Parking' />
               </StyledTabs>
             </Box>
-          </Box>
+          )}
+        </Box>
 
-          {/* Search */}
-          <Box>
-            <Search>
-              <SearchIconWrapper>
-                <MagnifyingGlass size={20} color='#fff' />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder='Search'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </Search>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </>
+        <Box>
+          <Search>
+            <SearchIconWrapper>
+              <MagnifyingGlass size={20} color='#fff' />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder='Search'
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

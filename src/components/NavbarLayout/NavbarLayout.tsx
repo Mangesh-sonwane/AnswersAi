@@ -1,18 +1,18 @@
-import { useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidbar/Sidbar';
+import { useUIStore } from '../../store/uiStore';
 
 const NavbarLayout = ({ children }: { children: React.ReactNode }) => {
-  const [sidebar, setSideBar] = useState<boolean>(false);
+  const sidebar = useUIStore((state) => state.sidebar);
 
   return (
     <div className='flex flex-col h-screen w-full'>
       {/* Navbar */}
-      <Navbar sidebar={sidebar} setSideBar={setSideBar} />
+      <Navbar />
 
       <div className='flex flex-1 pt-[7px]'>
         {/* Sidebar */}
-        <Sidebar sidebar={sidebar} />
+        <Sidebar />
 
         {/* Main Content */}
         <main
