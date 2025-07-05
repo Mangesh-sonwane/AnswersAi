@@ -10,7 +10,7 @@ import CustomButton from '../../../components/Buttons/CustomButton';
 import BestScenarioResults from './BestScenarioResults';
 import PerformanceStats from './PerformanceStats';
 
-const ChargingStationsPage = () => {
+const ChargingStationsPage: React.FC = () => {
   return (
     <div className='flex flex-col items-center justify-center h-full p-6 w-full gap-10'>
       <div className='flex justify-between items-center w-full'>
@@ -60,7 +60,11 @@ const ChargingStationsPage = () => {
           </div>
         </div>
         <div className='w-[505px] flex justify-start items-start'>
-          <PerformanceStats />
+          <PerformanceStats
+            keyPerformanceIndicators={
+              chargingStationDashboard.dashboard.keyPerformanceIndicators
+            }
+          />
         </div>
       </div>
     </div>
