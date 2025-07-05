@@ -1,4 +1,5 @@
 import {
+  CaretDownIcon,
   ClockCounterClockwiseIcon,
   LightningIcon,
   UploadSimpleIcon,
@@ -9,6 +10,7 @@ import { chargingStationDashboard } from '../../../util/DummyData';
 import CustomButton from '../../../components/Buttons/CustomButton';
 import BestScenarioResults from './BestScenarioResults';
 import PerformanceStats from './PerformanceStats';
+import UnsatisfiedDemandChart from './Graph';
 
 const ChargingStationsPage: React.FC = () => {
   return (
@@ -51,11 +53,23 @@ const ChargingStationsPage: React.FC = () => {
           <h1 className='font-semibold text-[24px] leading-[150%] tracking-normal text-white'>
             Graph
           </h1>
-          <div className='w-full h-[450px] border-[1px] border-border rounded-[5px] bg-background-tertiary '>
-            <div className='flex items-center justify-center h-full'>
-              <p className='text-white text-sm p-2'>
-                Graph will be displayed here.
-              </p>
+          <div className='w-full h-[450px] border-[1px] border-border rounded-[5px] bg-background-tertiary p-4'>
+            <div className='h-[50px] flex justify-end w-full'>
+              <CustomButton
+                text='Unsatisfied Demand %'
+                endIcon={<CaretDownIcon size={20} weight='bold' color='#fff' />}
+                className='!bg-background-senary'
+              />
+            </div>
+            <div className='w-full h-[350px]'>
+              <UnsatisfiedDemandChart
+                data={
+                  chargingStationDashboard.dashboard.graphs.unsatisfiedDemand
+                    .data
+                }
+                yAxisMax={100000}
+                currentMonth='Jul'
+              />
             </div>
           </div>
         </div>
