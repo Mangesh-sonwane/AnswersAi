@@ -3,38 +3,39 @@ import {
   DotsThreeIcon,
   SparkleIcon,
 } from '@phosphor-icons/react';
+import { IconButton } from '@mui/material';
 import CircularIconButton from '../../../components/Buttons/CircularIconButton';
 import { ReusableAccordion } from '../../../components/Surafce/CustomAccordion';
-import { IconButton } from '@mui/material';
+import type { BestScenarioResultsProps, ResultsRowProps } from '../../../types';
 
-const ResultsRow = () => {
+const ResultsRow = ({ rows }: ResultsRowProps) => {
   return (
     <div className='flex flex-col justify-center items-center gap-4'>
-      <div className='flex justify-between items-center w-full border-[0.5px] border-font-secondary rounded-lg px-6 py-[15px] bg-[#1a1b18] h-[54px]'>
-        <p className='font-inter font-medium text-base leading-relaxed tracking-normal text-font-secondary'>
-          The best found configuration based on profit is characterized by 11
-          zones (max) with charging stations and 48 total number of poles.
-        </p>
-        <IconButton size='medium'>
-          <DotsThreeIcon size={32} weight='bold' color='#c9ff3b' />
-        </IconButton>
-      </div>
-      <div className='flex justify-between items-center w-full border-[0.5px] border-font-secondary rounded-lg px-6 py-[15px] bg-[#1a1b18] h-[54px]'>
-        <p className='font-inter font-medium text-base leading-relaxed tracking-normal text-font-secondary'>
-          The best found configuration based on profit is characterized by 11
-          zones (max) with charging stations and 48 total number of poles.
-        </p>
-        <IconButton size='medium'>
-          <DotsThreeIcon size={32} weight='bold' color='#c9ff3b' />
-        </IconButton>
-      </div>
+      {rows.map((row, index) => (
+        <div
+          key={row.key || index}
+          className='flex justify-between items-center w-full border-[0.5px] border-font-secondary rounded-lg px-6 py-[15px] bg-[#1a1b18] h-[54px]'
+        >
+          <p className='font-inter font-medium text-base leading-relaxed tracking-normal text-font-secondary'>
+            {row.description}
+          </p>
+          <IconButton size='medium'>
+            <DotsThreeIcon size={32} weight='bold' color='#c9ff3b' />
+          </IconButton>
+        </div>
+      ))}
     </div>
   );
 };
 
-const BestScenarioResults = () => {
+const BestScenarioResults = ({ data }: BestScenarioResultsProps) => {
+  const rows = Object.entries(data ?? {}).map(([key, value]) => ({
+    key,
+    description: value.description,
+  }));
+
   return (
-    <div className='flex flex-col items-center justify-center h-full  w-full gap-6'>
+    <div className='flex flex-col items-center justify-center h-full w-full gap-6'>
       <div className='w-full flex justify-center items-center'>
         <ReusableAccordion
           header={
@@ -47,7 +48,7 @@ const BestScenarioResults = () => {
           }
           content={
             <div className='w-full'>
-              <ResultsRow />
+              <ResultsRow rows={rows} />
             </div>
           }
           expandIcon={

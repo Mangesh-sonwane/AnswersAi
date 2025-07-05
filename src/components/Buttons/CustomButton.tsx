@@ -3,17 +3,24 @@ import { Button, type ButtonProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 interface CustomButtonProps extends ButtonProps {
-  icon?: React.ReactNode;
+  icon?: React.ReactNode; // Icon before text
+  endIcon?: React.ReactNode; // Icon after text
   text?: string;
+  customWidth?: string | number; // Custom width prop
 }
 
-const StyledButton = styled(Button)<CustomButtonProps>(({ text }) => ({
-  backgroundColor: '#242424',
+const StyledButton = styled(Button)<{
+  hasText: boolean;
+  customWidth?: string | number;
+}>(({ hasText, variant, customWidth }) => ({
+  // Only apply background color if not outlined variant
+  backgroundColor: variant === 'outlined' ? 'transparent' : '#242424',
   border: '0.67px solid #5A5A5A',
   height: '40px',
-  minWidth: text ? '140px' : '40px',
+  minWidth: customWidth || (hasText ? '140px' : '40px'),
+  width: customWidth || 'auto',
   borderRadius: '5px',
-  padding: text ? '10px 14px' : '10px',
+  padding: hasText ? '10px 14px' : '10px',
   textTransform: 'none',
   whiteSpace: 'nowrap',
   color: '#ffffff',
@@ -25,15 +32,25 @@ const StyledButton = styled(Button)<CustomButtonProps>(({ text }) => ({
   justifyContent: 'center',
   gap: '8px',
   '&:hover': {
-    backgroundColor: '#2c2c2c',
+    backgroundColor:
+      variant === 'outlined' ? 'rgba(255,255,255,0.1)' : '#2c2c2c',
   },
 }));
 
-const CustomButton: React.FC<CustomButtonProps> = ({ icon, text, ...rest }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({
+  icon,
+  endIcon,
+  text,
+  customWidth,
+  ...rest
+}) => {
+  const hasText = Boolean(text);
+
   return (
-    <StyledButton text={text} {...rest}>
+    <StyledButton hasText={hasText} customWidth={customWidth} {...rest}>
       {icon}
       {text && <span>{text}</span>}
+      {endIcon}
     </StyledButton>
   );
 };
