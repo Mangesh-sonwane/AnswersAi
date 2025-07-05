@@ -6,7 +6,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
 
 // Components
-import ChargingStationsPage from './Components/ChargingStationsPage/ChargingStationsPage';
+import ChargingStationsPage from './Components/ChargingStationsPage';
 
 const Dashboard = () => {
   const tabValue = useUIStore((state) => state.tabValue);
