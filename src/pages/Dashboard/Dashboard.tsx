@@ -7,12 +7,23 @@ import TabPanel from '@mui/lab/TabPanel';
 
 // Components
 import ChargingStationsPage from './Components/ChargingStationsPage';
+import ReusableDrawer from '../../components/modal/CustomDrawer';
+import DrawerContent from './Components/drawer/DrawerContent';
 
 const Dashboard = () => {
-  const tabValue = useUIStore((state) => state.tabValue);
+  const { drawer, setDrawer, tabValue } = useUIStore();
 
   return (
     <Box className='flex flex-col h-full border-[0.5px] border-[#bdc1ca] rounded-[5px]'>
+      <ReusableDrawer
+        open={drawer}
+        onClose={() => setDrawer(false)}
+        anchor='right'
+      >
+        <div className=''>
+          <DrawerContent />
+        </div>
+      </ReusableDrawer>
       <TabContext value={tabValue.toString()}>
         <TabPanel value='0' className='!p-0'>
           <ChargingStationsPage />

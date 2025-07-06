@@ -6,6 +6,9 @@ interface UIStore {
 
   sidebar: boolean;
   setSideBar: (value: boolean) => void;
+
+  drawer: boolean;
+  setDrawer: (value: boolean) => void;
 }
 
 export const useUIStore = create<UIStore>((set) => ({
@@ -14,4 +17,7 @@ export const useUIStore = create<UIStore>((set) => ({
 
   sidebar: false,
   setSideBar: (value) => set({ sidebar: value }),
+
+  drawer: false,
+  setDrawer: (value) => set({ drawer: value }),
 }));

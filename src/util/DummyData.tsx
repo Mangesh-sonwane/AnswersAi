@@ -1,3 +1,5 @@
+import { SparkleIcon } from '@phosphor-icons/react';
+
 export const chargingStationDashboard = {
   dashboard: {
     title: 'Charging Station',
@@ -66,3 +68,72 @@ export const chargingStationDashboard = {
     },
   },
 };
+
+export const exampleButtonsFirst = [
+  {
+    id: 'carbon1',
+    label: 'Carbon 1',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'co2-distribution',
+    label: 'Co2 Distribution',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'fleet-sizing',
+    label: 'Fleet sizing',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+];
+
+export const RateDatabtn = [
+  {
+    id: 'parking-rate',
+    label: 'Parking Rate',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'border-rate',
+    label: 'Border Rate',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'request-rate',
+    label: 'Request Rate',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'variable-1',
+    label: 'Variable 1',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'variable-2',
+    label: 'Variable 2',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'variable-3',
+    label: 'Variable 3',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+];
+
+export const VariableDataBtn = [
+  {
+    id: 'variable-1',
+    label: 'Variable 1',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'variable-2',
+    label: 'Variable 2',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+  {
+    id: 'variable-3',
+    label: 'Variable 3',
+    icon: <SparkleIcon className='w-4 h-4' weight='fill' />,
+  },
+];

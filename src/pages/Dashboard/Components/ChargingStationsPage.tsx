@@ -11,8 +11,11 @@ import CustomButton from '../../../components/Buttons/CustomButton';
 import BestScenarioResults from './BestScenarioResults';
 import PerformanceStats from './PerformanceStats';
 import UnsatisfiedDemandChart from './Graph';
+import { useUIStore } from '../../../store/uiStore';
 
 const ChargingStationsPage: React.FC = () => {
+  const { setDrawer } = useUIStore();
+
   return (
     <div className='flex flex-col items-center justify-center h-full p-6 w-full gap-10'>
       <div className='flex justify-between items-center w-full'>
@@ -30,10 +33,7 @@ const ChargingStationsPage: React.FC = () => {
               <ClockCounterClockwiseIcon size={24} weight='bold' color='#fff' />
             }
           />
-          <CustomButton
-            text='Edit Variables'
-            onClick={() => console.log('Edit Button clicked!')}
-          />
+          <CustomButton text='Edit Variables' onClick={() => setDrawer(true)} />
           <CustomButton
             icon={<UploadSimpleIcon size={24} weight='bold' color='#fff' />}
           />

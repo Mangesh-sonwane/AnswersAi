@@ -49,7 +49,7 @@ const menuItems: MenuItem[] = [
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
-  const sidebar = useUIStore((state) => state.sidebar);
+  const { sidebar } = useUIStore();
 
   return (
     <Box
