@@ -1,5 +1,6 @@
 import { usePrivy } from '@privy-io/react-auth';
 import { useNavigate } from 'react-router';
+import { useEffect, useRef, useState } from 'react';
 import { Divider, Skeleton } from '@mui/material';
 import CustomButton from '../../components/Buttons/CustomButton';
 import type { User } from '@privy-io/react-auth';
@@ -7,6 +8,9 @@ import type { User } from '@privy-io/react-auth';
 const Profile: React.FC = () => {
   const { authenticated, login, logout, ready, user } = usePrivy();
   const navigate = useNavigate();
+  const redirectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [countdown, setCountdown] = useState<number>(15);
 
   const handleLogin = async (): Promise<void> => {
     try {
@@ -22,6 +26,17 @@ const Profile: React.FC = () => {
     } catch (error) {
       console.error('Logout failed:', error);
     }
+  };
+
+  const handleDashboardClick = (): void => {
+    // Clear the timeout and interval when user clicks the dashboard button
+    if (redirectTimeoutRef.current) {
+      clearTimeout(redirectTimeoutRef.current);
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    navigate('/');
   };
 
   const getUserNameAndEmail = (user: User) => {
@@ -56,10 +71,55 @@ const Profile: React.FC = () => {
     }
   };
 
+  // Set up auto-redirect timer when user is authenticated
+  useEffect(() => {
+    if (authenticated && ready) {
+      // Reset countdown
+      setCountdown(15);
+
+      // Set up the redirect timeout
+      redirectTimeoutRef.current = setTimeout(() => {
+        navigate('/');
+      }, 15000); // 15 seconds
+
+      // Set up countdown interval
+      intervalRef.current = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      // Cleanup function to clear timeout and interval
+      return () => {
+        if (redirectTimeoutRef.current) {
+          clearTimeout(redirectTimeoutRef.current);
+        }
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+      };
+    }
+  }, [authenticated, ready, navigate]);
+
+  // Clear timeout and interval on component unmount
+  useEffect(() => {
+    return () => {
+      if (redirectTimeoutRef.current) {
+        clearTimeout(redirectTimeoutRef.current);
+      }
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
   if (!ready) {
     return (
       <div className='flex justify-center items-center h-screen'>
-        <div className='text-xl font-medium'>Loading...</div>
+        <div className='text-xl font-medium text-white'>Loading...</div>
       </div>
     );
   }
@@ -120,11 +180,16 @@ const Profile: React.FC = () => {
             <p className='text-font-senary text-base'>
               For More Details, Please go to the Dashboard
             </p>
-            <CustomButton
-              text={'Go to Dashboard'}
-              onClick={() => navigate('/')}
-              customWidth={'220px'}
-            />
+            <span className='text-font-senary text-sm'>
+              Auto-redirect in {countdown}s
+            </span>
+            <div className='flex items-center gap-3'>
+              <CustomButton
+                text={'Go to Dashboard'}
+                onClick={handleDashboardClick}
+                customWidth={'220px'}
+              />
+            </div>
           </div>
 
           <CustomButton
