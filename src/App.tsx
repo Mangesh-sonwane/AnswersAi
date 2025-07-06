@@ -42,7 +42,7 @@ function App(): React.JSX.Element {
   if (!ready) {
     return (
       <div className='flex justify-center items-center h-screen'>
-        <div className='text-xl font-medium'>Loading...</div>
+        <div className='text-xl font-medium text-white'>Loading...</div>
       </div>
     );
   }
