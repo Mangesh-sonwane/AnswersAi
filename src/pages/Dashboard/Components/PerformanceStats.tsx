@@ -1,4 +1,5 @@
 import { PlusIcon, QuestionIcon } from '@phosphor-icons/react';
+import { Skeleton } from '@mui/material';
 import CustomButton from '../../../components/Buttons/CustomButton';
 
 import type {
@@ -36,8 +37,8 @@ const PerformanceCard: React.FC<PerformanceCardProps> = ({ data }) => {
 const PerformanceStats: React.FC<PerformanceStatsProps> = ({
   keyPerformanceIndicators,
 }) => {
-  // Convert the object to an array for easier mapping
-  const performanceData = Object.values(keyPerformanceIndicators);
+  const performanceData = Object.values(keyPerformanceIndicators || {});
+  const isDataAvailable = performanceData.length > 0;
 
   return (
     <div className='w-[505px] h-auto flex flex-col justify-start items-start gap-4'>
@@ -50,13 +51,28 @@ const PerformanceStats: React.FC<PerformanceStatsProps> = ({
           variant='outlined'
           endIcon={<PlusIcon size={20} weight='bold' color='#fff' />}
           customWidth='130px'
-          //   onClick={() => alert('Clicked!')}
+          onClick={() => alert('Variables clicked')}
         />
       </div>
+
       <div className='grid grid-cols-2 gap-5'>
-        {performanceData.map((indicator, index) => (
-          <PerformanceCard key={index} data={indicator} />
-        ))}
+        {isDataAvailable
+          ? performanceData.map((indicator, index) => (
+              <PerformanceCard key={index} data={indicator} />
+            ))
+          : Array.from({ length: 4 }).map((_, index) => (
+              <Skeleton
+                key={index}
+                variant='rectangular'
+                width={241}
+                height={215}
+                animation='wave'
+                sx={{
+                  borderRadius: '5px',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                }}
+              />
+            ))}
       </div>
     </div>
   );

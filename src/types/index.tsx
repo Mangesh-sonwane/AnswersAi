@@ -34,3 +34,10 @@ export interface PerformanceCardProps {
 export interface PerformanceStatsProps {
   keyPerformanceIndicators: Record<string, PerformanceIndicator>;
 }
+
+export type AuthUser = {
+  google?: { name: string; email: string };
+  github?: { name: string; email: string };
+  email?: { name?: string; address: string };
+  twitter?: { name: string };
+};
