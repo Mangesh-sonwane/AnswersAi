@@ -42,6 +42,7 @@ yarn install
 ### 3. 🔐 Configure Environment Variables
 
 ```bash
+Create a .env file 
 VITE_PRIVY_APP_ID=your_privy_app_id
 ```
 
