@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 
 import type { DotProps } from 'recharts';
+import { useResponsive } from '../../../store/useResponsive';
 
 // Chart data interface
 export interface ChartData {
@@ -173,6 +174,11 @@ export const UnsatisfiedDemandChart: React.FC<UnsatisfiedDemandChartProps> = ({
   currentMonth,
 }) => {
   const activeIndex = data.findIndex((d) => d.month === currentMonth);
+  const { isMobile } = useResponsive();
+
+  const chartMargin = isMobile
+    ? { top: 10, right: 20, left: 0, bottom: 20 }
+    : { top: 20, right: 70, left: 10, bottom: 40 };
 
   return (
     <div
@@ -185,10 +191,7 @@ export const UnsatisfiedDemandChart: React.FC<UnsatisfiedDemandChartProps> = ({
       }}
     >
       <ResponsiveContainer width='100%' height='100%'>
-        <LineChart
-          data={data}
-          margin={{ top: 20, right: 70, left: 10, bottom: 40 }}
-        >
+        <LineChart data={data} margin={chartMargin}>
           <defs>
             <filter id='glow' x='-50%' y='-50%' width='200%' height='200%'>
               <feGaussianBlur stdDeviation='6' result='coloredBlur' />

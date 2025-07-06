@@ -9,7 +9,7 @@ import type {
 
 const PerformanceCard: React.FC<PerformanceCardProps> = ({ data }) => {
   return (
-    <div className='w-[241px] h-[215px] border-[1px] border-border rounded-[5px] bg-background-tertiary p-[30px]'>
+    <div className='md:w-[241px] w-full h-[215px] border-[1px] border-border rounded-[5px] bg-background-tertiary p-[30px]'>
       <div className='flex flex-col justify-start items-start gap-10 '>
         <div className='w-full flex flex-col gap-[10px]'>
           <div className='flex justify-between items-center w-[192px]'>
@@ -42,8 +42,8 @@ const PerformanceStats: React.FC<PerformanceStatsProps> = ({
 
   return (
     <div className='w-[505px] h-auto flex flex-col justify-start items-start gap-4'>
-      <div className='flex justify-between items-center w-full'>
-        <h1 className='font-semibold text-[24px] leading-[150%] tracking-normal text-white'>
+      <div className='flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4'>
+        <h1 className='font-semibold text-2xl leading-[150%] tracking-normal text-white'>
           Key Performance Indicators
         </h1>
         <CustomButton
@@ -55,7 +55,7 @@ const PerformanceStats: React.FC<PerformanceStatsProps> = ({
         />
       </div>
 
-      <div className='grid grid-cols-2 gap-5'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 w-full'>
         {isDataAvailable
           ? performanceData.map((indicator, index) => (
               <PerformanceCard key={index} data={indicator} />

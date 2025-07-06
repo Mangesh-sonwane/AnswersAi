@@ -1,51 +1,10 @@
 import { Box, Avatar, Typography, ListItemButton } from '@mui/material';
-import {
-  House,
-  Bell,
-  CalendarBlank,
-  UploadSimple,
-  Gear,
-  UserCircle,
-} from '@phosphor-icons/react';
-import type { IconProps } from '@phosphor-icons/react';
+import { UserCircle } from '@phosphor-icons/react';
 
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { useUIStore } from '../../store/uiStore';
-
-type MenuItem = {
-  icon: React.FC<IconProps>;
-  label: string;
-  path: string;
-};
-
-const menuItems: MenuItem[] = [
-  {
-    icon: House,
-    label: 'Home',
-    path: '/',
-  },
-  {
-    icon: Bell,
-    label: 'Notifications',
-    path: '/notification',
-  },
-  {
-    icon: CalendarBlank,
-    label: 'Calendar',
-    path: '/calendar',
-  },
-  {
-    icon: UploadSimple,
-    label: 'Upload',
-    path: '/upload',
-  },
-  {
-    icon: Gear,
-    label: 'Settings',
-    path: '/settings',
-  },
-];
+import { menuItems } from '../../util/MenuItem';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
