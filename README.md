@@ -1,70 +1,58 @@
-# React + TypeScript + Vite
+# 🧠 AnswersAi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**AnswersAi** is an interactive data visualization platform designed to provide meaningful insights through clean, responsive UI components. Built with modern tools like React, Vite, MUI, and Recharts, it includes secure user authentication using Privy.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- **React 19**
+- **TypeScript**
+- **Vite** – Blazing fast build tool
+- **Tailwind CSS** – Utility-first styling
+- **Emotion + MUI** – Custom and material components
+- **Recharts** – Data visualization
+- **Zustand** – Lightweight state management
+- **React Router DOM v7** – Client-side routing
+- **Privy** – Web3-compatible authentication
+- **Vercel** – Deployment platform
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 📦 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/answers-ai.git
+cd answers-ai
+
+```
+### 2. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+
+```
+### 3. 🔐 Configure Environment Variables
+
+```bash
+VITE_PRIVY_APP_ID=your_privy_app_id
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 4. 💻 Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Visit http://localhost:5173 to view the app in your browser.
+
 ```
-# AnswersAi
+
+
