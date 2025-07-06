@@ -9,7 +9,9 @@ import { QuestionIcon } from '@phosphor-icons/react';
 
 const VariableCategary: React.FC = () => {
   const [showCo2Details, setShowCo2Details] = useState<boolean>(false);
-  const [hoverTimeout, setHoverTimeout] = useState<number | null>(null);
+  const [hoverTimeout, setHoverTimeout] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
   const handleMouseEnter = (buttonId: string): void => {
     if (buttonId === 'co2-distribution') {
