@@ -2,6 +2,8 @@
 
 **AnswersAi** is an interactive data visualization platform designed to provide meaningful insights through clean, responsive UI components. Built with modern tools like React, Vite, MUI, and Recharts, it includes secure user authentication using Privy.
 
+✅ Now fully responsive on mobile and tablet devices!
+
 ---
 
 ## 🚀 Tech Stack
