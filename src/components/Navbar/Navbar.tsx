@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useUIStore } from '../../store/uiStore';
+import { useResponsive } from '../../store/useResponsive';
 
 const Search = styled('div')({
   position: 'relative',
@@ -103,6 +104,7 @@ const StyledTab = styled(Tab)({
 
 const Navbar = () => {
   const { tabValue, sidebar, setTabValue, setSideBar } = useUIStore();
+  const { isMobile } = useResponsive();
 
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -123,8 +125,8 @@ const Navbar = () => {
     >
       <Toolbar
         sx={{
-          height: '87px',
-          minHeight: '87px !important',
+          height: isMobile ? '50px' : '87px',
+          minHeight: isMobile ? '70px' : '87px !important',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -142,7 +144,7 @@ const Navbar = () => {
             <List size={20} weight='regular' />
           </IconButton>
 
-          {isHomePage && (
+          {isHomePage && !isMobile && (
             <Box
               sx={{
                 transition: 'margin-left 0.3s ease',

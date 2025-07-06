@@ -29,13 +29,8 @@ const Profile: React.FC = () => {
   };
 
   const handleDashboardClick = (): void => {
-    // Clear the timeout and interval when user clicks the dashboard button
-    if (redirectTimeoutRef.current) {
-      clearTimeout(redirectTimeoutRef.current);
-    }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    if (redirectTimeoutRef.current) clearTimeout(redirectTimeoutRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current);
     navigate('/');
   };
 
@@ -71,48 +66,30 @@ const Profile: React.FC = () => {
     }
   };
 
-  // Set up auto-redirect timer when user is authenticated
   useEffect(() => {
     if (authenticated && ready) {
-      // Reset countdown
       setCountdown(15);
 
-      // Set up the redirect timeout
       redirectTimeoutRef.current = setTimeout(() => {
         navigate('/');
-      }, 15000); // 15 seconds
+      }, 15000);
 
-      // Set up countdown interval
       intervalRef.current = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            return 0;
-          }
-          return prev - 1;
-        });
+        setCountdown((prev) => (prev <= 1 ? 0 : prev - 1));
       }, 1000);
 
-      // Cleanup function to clear timeout and interval
       return () => {
-        if (redirectTimeoutRef.current) {
+        if (redirectTimeoutRef.current)
           clearTimeout(redirectTimeoutRef.current);
-        }
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-        }
+        if (intervalRef.current) clearInterval(intervalRef.current);
       };
     }
   }, [authenticated, ready, navigate]);
 
-  // Clear timeout and interval on component unmount
   useEffect(() => {
     return () => {
-      if (redirectTimeoutRef.current) {
-        clearTimeout(redirectTimeoutRef.current);
-      }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (redirectTimeoutRef.current) clearTimeout(redirectTimeoutRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
 
@@ -125,20 +102,20 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className='flex justify-center items-center h-full border-[0.5px] border-[#bdc1ca] rounded-[5px] w-full'>
+    <div className='flex justify-center items-center min-h-screen w-full px-4 py-10'>
       {authenticated ? (
-        <div className='flex flex-col justify-center items-center h-full gap-8 w-full px-120'>
+        <div className='flex flex-col justify-center items-center w-full max-w-[500px] gap-6 md:gap-8'>
           <div className='text-center text-font-primary'>
             {user ? (
               (() => {
                 const { name, email } = getUserNameAndEmail(user);
                 return (
                   <div className='flex flex-col gap-2'>
-                    <h1 className='font-semibold text-[24px] leading-[150%] tracking-normal text-white'>
+                    <h1 className='font-semibold text-xl md:text-2xl leading-[150%] tracking-normal text-white'>
                       Welcome,
                       <span className='ml-1 text-font-secondary'>{name}</span>
                     </h1>
-                    <p className='text-base text-font-senary'>
+                    <p className='text-sm md:text-base text-font-senary break-words'>
                       You are logged in using
                       <span className='ml-1'>{email}</span>
                     </p>
@@ -146,7 +123,7 @@ const Profile: React.FC = () => {
                 );
               })()
             ) : (
-              <div className='flex flex-col gap-2 items-center w-[280px]'>
+              <div className='flex flex-col gap-2 items-center w-full'>
                 <Skeleton
                   variant='text'
                   width='100%'
@@ -167,6 +144,7 @@ const Profile: React.FC = () => {
               </div>
             )}
           </div>
+
           <Divider
             orientation='horizontal'
             sx={{
@@ -176,18 +154,18 @@ const Profile: React.FC = () => {
             }}
           />
 
-          <div className='flex flex-col gap-4 justify-center items-center'>
-            <p className='text-font-senary text-base'>
+          <div className='flex flex-col gap-3 justify-center items-center'>
+            <p className='text-font-senary text-sm md:text-base text-center'>
               For More Details, Please go to the Dashboard
             </p>
             <span className='text-font-senary text-sm'>
               Auto-redirect in {countdown}s
             </span>
-            <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-3 flex-wrap justify-center'>
               <CustomButton
                 text={'Go to Dashboard'}
                 onClick={handleDashboardClick}
-                customWidth={'220px'}
+                customWidth='220px'
               />
             </div>
           </div>
@@ -195,21 +173,21 @@ const Profile: React.FC = () => {
           <CustomButton
             text={authenticated ? 'Log Out' : 'Log In'}
             onClick={authenticated ? handleLogout : handleLogin}
-            customWidth={'220px'}
+            customWidth='220px'
           />
         </div>
       ) : (
-        <div className='w-full flex flex-col justify-center h-full items-center gap-8 p-12'>
-          <h1 className='text-4xl leading-[150%] font-bold tracking-normal text-white ml-2'>
+        <div className='w-full max-w-[500px] flex flex-col justify-center items-center gap-6 md:gap-8 px-4 py-12 text-center'>
+          <h1 className='text-2xl md:text-4xl leading-[150%] font-bold tracking-normal text-white'>
             Welcome to AnswersAI
           </h1>
-          <p className='text-lg font-semibold leading-[150%] tracking-[0%] text-font-primary'>
-            {authenticated ? '' : 'Please sign in to access your profile'}
+          <p className='text-base md:text-lg font-semibold leading-[150%] text-font-primary'>
+            Please sign in to access your profile
           </p>
           <CustomButton
-            text={'Log In'}
+            text='Log In'
             onClick={handleLogin}
-            customWidth={'220px'}
+            customWidth='220px'
           />
         </div>
       )}

@@ -9,9 +9,11 @@ import TabPanel from '@mui/lab/TabPanel';
 import ChargingStationsPage from './Components/ChargingStationsPage';
 import ReusableDrawer from '../../components/modal/CustomDrawer';
 import DrawerContent from './Components/drawer/DrawerContent';
+import { useResponsive } from '../../store/useResponsive';
 
 const Dashboard = () => {
   const { drawer, setDrawer, tabValue } = useUIStore();
+  const { isMobile } = useResponsive();
 
   return (
     <Box className='flex flex-col h-full border-[0.5px] border-[#bdc1ca] rounded-[5px]'>
@@ -19,6 +21,7 @@ const Dashboard = () => {
         open={drawer}
         onClose={() => setDrawer(false)}
         anchor='right'
+        customWidth={isMobile ? '95vw' : ''}
       >
         <div className=''>
           <DrawerContent />

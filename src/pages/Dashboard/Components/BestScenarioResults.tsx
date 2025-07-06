@@ -10,17 +10,17 @@ import type { BestScenarioResultsProps, ResultsRowProps } from '../../../types';
 
 const ResultsRow = ({ rows }: ResultsRowProps) => {
   return (
-    <div className='flex flex-col justify-center items-center gap-4'>
+    <div className='flex flex-col justify-center items-center gap-4 w-full'>
       {rows.map((row, index) => (
         <div
           key={row.key || index}
-          className='flex justify-between items-center w-full border-[0.5px] border-font-secondary rounded-lg px-6 py-[15px] bg-[#1a1b18] h-[54px]'
+          className='flex justify-between items-center w-full border-[0.5px] border-font-secondary rounded-lg px-6 py-3 md:py-4 bg-[#1a1b18]'
         >
-          <p className='font-inter font-medium text-base leading-relaxed tracking-normal text-font-secondary'>
+          <p className='font-inter font-medium text-sm md:text-base leading-relaxed tracking-normal text-font-secondary'>
             {row.description}
           </p>
           <IconButton size='medium'>
-            <DotsThreeIcon size={32} weight='bold' color='#c9ff3b' />
+            <DotsThreeIcon size={28} weight='bold' color='#c9ff3b' />
           </IconButton>
         </div>
       ))}
@@ -39,7 +39,7 @@ const BestScenarioResults = ({ data }: BestScenarioResultsProps) => {
       <div className='w-full flex justify-center items-center'>
         <ReusableAccordion
           header={
-            <div className='flex justify-start items-center w-full gap-2'>
+            <div className='flex justify-start items-center w-full gap-2 md:w-auto'>
               <SparkleIcon size={20} weight='fill' color='#dafd7f' />
               <p className='text-2xl font-semibold leading-[150%] tracking-[0%] text-font-primary'>
                 Best Scenario Results
