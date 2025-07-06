@@ -102,11 +102,7 @@ const StyledTab = styled(Tab)({
 });
 
 const Navbar = () => {
-  const tabValue = useUIStore((state) => state.tabValue);
-  const sidebar = useUIStore((state) => state.sidebar);
-
-  const setTabValue = useUIStore((state) => state.setTabValue);
-  const setSideBar = useUIStore((state) => state.setSideBar);
+  const { tabValue, sidebar, setTabValue, setSideBar } = useUIStore();
 
   const location = useLocation();
   const isHomePage = location.pathname === '/';
